@@ -35,11 +35,19 @@ case  $type in
 		;;
 esac
 echo -e "This device is:\nserial number = $serial_number\ndefault username = $username\ndefault password = $password\n"
+# finding the files
+echo "Paste the path to the bulk fast5 file to transfer (smaller size = better)"
+fast5_path="~/Documents/random_file.txt"
+toml_path="/opt/ont/minknow/conf/package/sequencing/sequencing_MIN114_DNA_e8_2_400K.toml"
+read fast5_path
 
 # create a connection to the ont device
 echo "connecting to device over port 22"
 #sleep 1
-echo $(scp ~/Documents/random_file.txt "$username@$serial_number:/data/" )
+
+$(scp $fast5_path "$username@$serial_number:/data/" )
+$(scp "$username@$serial_number:$toml_path" ~/Documents/)
+echo $?
 # transfer files to device
 
 # confirm correct permissions on device
